@@ -19,12 +19,15 @@ function App() {
     }
     getCountries();
   }, []);
+  
+  const lastCountryIndex = currentPage * countriesPerPage;
+  const firstCountryIndex = lastCountryIndex - countriesPerPage;
+  const currentCountry = countries.slice(firstCountryIndex, lastCountryIndex);
 
   return (
     <div className="container mt-5">
       <h1 className="text-primary">Countries</h1>
       <Countries countries={ countries } loading={ loading } />
-      
     </div>
   );
 }
