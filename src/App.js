@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Countries from './components/Countries';
 
 function App() {
 
@@ -11,10 +12,10 @@ function App() {
 
   useEffect(() => {
     const getCountries = async () => {
-      setLoading(true);
-      const res = await axios.get(' https://restcountries.eu/rest/v2/all');
-      setCountries(res.data);
-      setLoading(false);
+      setLoading(true)
+      const res = await axios.get('https://restcountries.eu/rest/v3.1/all');
+      setCountries(res.data)
+      setLoading(false)
     }
     getCountries();
   }, []);
@@ -22,6 +23,7 @@ function App() {
   return (
     <div className="container mt-5">
       <h1 className="text-primary">Countries</h1>
+      <Countries countries={ countries } loading={ loading } />
       
     </div>
   );
