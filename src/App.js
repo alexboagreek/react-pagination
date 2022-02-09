@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Countries from './components/Countries';
+import Pagination from './components/Pagination';
 
 function App() {
 
@@ -19,15 +20,26 @@ function App() {
     }
     getCountries();
   }, []);
-  
+
   const lastCountryIndex = currentPage * countriesPerPage;
   const firstCountryIndex = lastCountryIndex - countriesPerPage;
   const currentCountry = countries.slice(firstCountryIndex, lastCountryIndex);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage( prev => prev + 1);
+  const prevPage = () => setCurrentPage( prev => prev - 1);
 
   return (
     <div className="container mt-5">
       <h1 className="text-primary">Countries</h1>
-      <Countries countries={ countries } loading={ loading } />
+      <Countries countries={ currentCountry } loading={ loading } />
+      <Pagination
+        countriesPerPage={ countriesPerPage }
+        totalCountries={ countries.length }
+        paginate={paginate}
+      />
+      <button className='btn btn-primary' onClick={ prevPage }>PREV PAGE</button>
+
+      <button ClassName='btn btn-primary ms-2' onClick={ nextPage }>NEXT PAGE</button>
     </div>
   );
 }
